@@ -1,0 +1,552 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style></head><body><title>INLOOK暖暖包</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap">
+<style>
+/* 版面：桌機＝左邊一支手機示意、右邊給二哥看的說明；手機＝直接就是 APP 畫面，說明放最下面 */
+:root{
+  --wine:#76293b;      /* 酒紅：主色 */
+  --mist:#b9cbe0;      /* 霧藍：關心 */
+  --pearl:#f3f1ed;     /* 珍珠白：底 */
+  --ti:#2a2a2e;        /* 鈦黑：字 */
+  --cocoa:#6e4532;     /* 可可咖啡：溫暖 */
+  --paper:#fbfaf8;
+  --line:#e2ddd6;
+  --muted:#6f6a66;
+  --font:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{background:#e9e5df;color:var(--ti);font-family:var(--font)}
+body{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 40px}
+.stage{max-width:1040px;margin:0 auto;display:grid;grid-template-columns:400px 1fr;gap:40px;align-items:start}
+.phone{position:relative;border-radius:40px;background:var(--pearl);box-shadow:0 0 0 10px var(--ti),0 30px 60px -20px rgba(42,42,46,.45);overflow:hidden;height:820px;display:flex;flex-direction:column}
+.ribbon{background:var(--ti);color:#e9e5df;font-size:12px;text-align:center;padding:8px 12px;letter-spacing:.05em}
+
+/* ---- 背景：極光光暈＋軌道細線＋顆粒 ---- */
+.screen{position:relative;flex:1;overflow-y:auto;overflow-x:hidden;isolation:isolate}
+.screen::before{content:"";position:absolute;inset:0;z-index:-2;
+  background:
+   radial-gradient(60% 40% at 85% 0%,rgba(118,41,59,.28),transparent 70%),
+   radial-gradient(55% 35% at 0% 18%,rgba(185,203,224,.75),transparent 70%),
+   radial-gradient(50% 30% at 100% 45%,rgba(110,69,50,.14),transparent 70%),
+   var(--pearl);height:620px}
+.screen::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.35;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3 0 0 0 0 .25 0 0 0 0 .22 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+.orbit{position:absolute;top:-60px;right:-120px;width:360px;height:360px;z-index:-1;pointer-events:none}
+.orbit ellipse{fill:none;stroke:var(--wine);stroke-opacity:.18;stroke-width:1}
+
+.view{padding:22px 20px 110px;display:flex;flex-direction:column;gap:18px}
+.view[hidden]{display:none!important}
+
+/* ---- 標題金屬字 ---- */
+.brand{font-size:12px;letter-spacing:.2em;color:var(--cocoa);font-weight:700}
+h1.metal{margin:0;font-weight:900;font-size:34px;line-height:1.15;letter-spacing:.02em;text-wrap:balance;
+  background:linear-gradient(170deg,#b75a70 0%,#5c1b2b 38%,#d996a6 52%,#76293b 64%,#3f0f1b 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+h2{margin:0;font-size:22px;font-weight:900;color:var(--wine)}
+
+.host{display:flex;gap:12px;align-items:flex-start}
+.avatar{flex:none;width:52px;height:52px;border-radius:50%;background:var(--cocoa);color:var(--pearl);display:grid;place-items:center;font-weight:900;font-size:15px;box-shadow:0 0 0 3px var(--paper),0 0 0 4px var(--line)}
+.bubble{background:var(--paper);border:1px solid var(--line);border-radius:4px 16px 16px 16px;padding:12px 14px;font-size:15px;line-height:1.7}
+.bubble b{color:var(--wine)}
+
+.promise{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.promise div{background:rgba(255,255,255,.55);border:1px solid var(--line);border-radius:12px;padding:10px 8px;font-size:12.5px;line-height:1.45;text-align:center;font-weight:500}
+.promise strong{display:block;font-size:14px;color:var(--wine);font-weight:900;margin-bottom:2px}
+
+.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:14px}
+.label{font-size:14px;font-weight:700;display:flex;justify-content:space-between;align-items:baseline}
+.label small{font-weight:400;color:var(--muted);font-size:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 13px;font:500 14px var(--font);color:var(--ti);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--wine);border-color:var(--wine);color:var(--pearl)}
+textarea,input[type=text]{width:100%;border:1px solid var(--line);border-radius:12px;background:#fff;padding:12px;font:400 15px/1.7 var(--font);color:var(--ti);resize:vertical}
+textarea{min-height:150px}
+textarea:focus,input:focus,.chip:focus-visible,button:focus-visible{outline:2px solid var(--wine);outline-offset:2px}
+.count{font-size:12px;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums;margin-top:-8px}
+
+.seg{display:grid;grid-template-columns:1fr 1fr;background:#ece8e2;border-radius:14px;padding:4px;gap:4px}
+.seg button{border:0;border-radius:11px;padding:11px 6px;font:700 15px var(--font);background:transparent;color:var(--muted);cursor:pointer}
+.seg button[aria-pressed="true"]{background:#fff;color:var(--wine);box-shadow:0 1px 3px rgba(42,42,46,.15)}
+.note{font-size:13px;line-height:1.7;border-radius:12px;padding:12px 14px}
+.note.anon{background:rgba(185,203,224,.45);color:#26374a}
+.note.named{background:rgba(110,69,50,.09);color:var(--cocoa)}
+.note ul{margin:6px 0 0;padding-left:18px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+
+.btn{border:0;border-radius:14px;padding:15px;font:900 17px var(--font);letter-spacing:.06em;background:var(--wine);color:var(--pearl);cursor:pointer;width:100%}
+.btn:disabled{background:#cdbfc2;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--wine);border:1.5px solid var(--wine)}
+
+/* 送出後 */
+.done{text-align:center;align-items:center}
+.code{font:900 34px/1 "Noto Sans TC",ui-monospace,monospace;letter-spacing:.18em;color:var(--pearl);background:var(--ti);border-radius:16px;padding:18px 20px 18px 26px;font-variant-numeric:tabular-nums;
+  background-image:linear-gradient(160deg,rgba(255,255,255,.08),transparent 40%),radial-gradient(80% 120% at 100% 0%,rgba(118,41,59,.6),transparent 60%)}
+.code span{background:linear-gradient(180deg,#fff,#a9a9b0 50%,#e8e8ec 60%,#8d8d95);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* 查回覆 */
+.thread{display:flex;flex-direction:column;gap:12px}
+.msg{border-radius:16px;padding:12px 14px;font-size:14.5px;line-height:1.7}
+.msg .meta{font-size:12px;color:var(--muted);margin-bottom:4px;display:flex;gap:8px;align-items:center}
+.msg.me{background:#fff;border:1px solid var(--line);margin-left:36px;border-top-right-radius:4px}
+.msg.him{background:var(--wine);color:var(--pearl);margin-right:36px;border-top-left-radius:4px}
+.msg.him .meta{color:#e7c9d0}
+.status{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px}
+.st-read{background:rgba(185,203,224,.6);color:#26374a}
+.st-doing{background:rgba(110,69,50,.15);color:var(--cocoa)}
+
+/* 做到了 */
+.month{background:var(--ti);color:var(--pearl);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden}
+.month::after{content:"";position:absolute;right:-60px;top:-60px;width:180px;height:180px;border-radius:50%;border:1px solid rgba(243,241,237,.15);box-shadow:0 0 0 22px rgba(243,241,237,.03)}
+.month h3{margin:0;font-size:20px;font-weight:900;background:linear-gradient(180deg,#fff,#a9a9b0 50%,#ececf0 60%,#9a9aa2);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
+.stats b{display:block;font-size:24px;font-weight:900;font-variant-numeric:tabular-nums}
+.stats span{font-size:12px;color:#c9c6c0}
+.item{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:start}
+.tag{grid-row:span 2;font-size:12px;font-weight:900;border-radius:8px;padding:5px 8px;white-space:nowrap}
+.t-done{background:var(--pearl);color:var(--wine);border:1px solid var(--wine)}
+.t-doing{background:rgba(110,69,50,.12);color:var(--cocoa)}
+.t-not{background:#ece8e2;color:var(--muted)}
+.item p{margin:0;font-size:14.5px;line-height:1.6}
+.item p.why{font-size:13px;color:var(--muted)}
+.sample{font-size:11.5px;color:var(--muted);text-align:center}
+
+/* 底部分頁 */
+.tabs{position:absolute;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(3,1fr);background:rgba(251,250,248,.94);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:8px 8px calc(10px + env(safe-area-inset-bottom,0px))}
+.tabs button{border:0;background:none;font:700 13px var(--font);color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 0;cursor:pointer;border-radius:10px}
+.tabs button svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tabs button[aria-current="page"]{color:var(--wine)}
+
+/* ---- LINE 聊天室 ---- */
+.mode{flex:1;min-height:0;display:flex;flex-direction:column;position:relative}
+.mode[hidden]{display:none!important}
+.lhead{display:flex;align-items:center;gap:10px;padding:12px 14px;background:#fff;border-bottom:1px solid #e3e6ea}
+.lhead .back{font-size:20px;color:#333;line-height:1}
+.lhead b{font-size:15.5px;font-weight:700;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lhead small{font-size:11px;color:#8a8f96;font-weight:400;display:block}
+.lchat{flex:1;overflow-y:auto;background:#a9bbd3;padding:16px 12px;display:flex;flex-direction:column;gap:12px}
+.lday{align-self:center;font-size:11.5px;color:#fff;background:rgba(42,42,46,.25);border-radius:999px;padding:3px 10px}
+.lrow{display:flex;gap:8px;align-items:flex-start}
+.lav{flex:none;width:36px;height:36px;border-radius:50%;background:var(--wine);color:var(--pearl);display:grid;place-items:center;font-size:11px;font-weight:900}
+.lcol{display:flex;flex-direction:column;gap:6px;min-width:0;max-width:82%}
+.lname{font-size:11.5px;color:#2d3d52}
+.ltext{background:#fff;border-radius:4px 18px 18px 18px;padding:10px 13px;font-size:14.5px;line-height:1.65}
+.flex{border-radius:18px;overflow:hidden;background:var(--wine);color:var(--pearl);position:relative;isolation:isolate;width:250px;max-width:100%}
+.flex::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(70% 60% at 100% 0%,rgba(217,150,166,.55),transparent 70%),radial-gradient(60% 50% at 0% 100%,rgba(110,69,50,.7),transparent 70%)}
+.flex .fb{padding:18px 16px 14px;display:flex;flex-direction:column;gap:8px}
+.flex .eyebrow{font-size:11px;letter-spacing:.2em;color:#e7c9d0;font-weight:700}
+.flex .ft{font-size:22px;font-weight:900;line-height:1.25;background:linear-gradient(180deg,#fff,#b9b9c0 48%,#f2f2f5 58%,#a3a3ab);-webkit-background-clip:text;background-clip:text;color:transparent}
+.flex p{margin:0;font-size:13px;line-height:1.65;color:#f1e3e6}
+.flex .fbtn{display:block;width:100%;border:0;border-top:1px solid rgba(243,241,237,.2);background:rgba(243,241,237,.1);color:var(--pearl);font:700 14.5px var(--font);padding:13px;cursor:pointer}
+.ltime{font-size:10.5px;color:#43546b;align-self:flex-end}
+.lbar{display:flex;align-items:center;justify-content:center;gap:6px;background:#fff;border-top:1px solid #e3e6ea;padding:9px;font-size:13px;color:#333;font-weight:500}
+/* 圖文選單：上面兩個分頁、中間 3×2 按鈕、最下面一條標語 */
+.rm{background:var(--wine);position:relative;isolation:isolate;overflow:hidden}
+.rm::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(60% 70% at 100% 100%,rgba(110,69,50,.85),transparent 70%),radial-gradient(50% 60% at 0% 0%,rgba(217,150,166,.45),transparent 70%)}
+.rm-tabs{display:grid;grid-template-columns:repeat(3,1fr)}
+.rm-panel button.big{min-height:104px;font-size:15px;gap:7px}
+.rm-panel button.big svg{width:32px;height:32px}
+.rm-panel button small{font-size:11px;font-weight:500;opacity:.8}
+.rm-sub{display:grid;grid-template-columns:repeat(3,1fr);background:var(--pearl);border-top:1px solid var(--line)}
+.rm-sub button{border:0;background:none;cursor:pointer;font:700 12.5px var(--font);color:var(--cocoa);padding:9px 4px}
+.rm-sub button+button{border-left:1px solid var(--line)}
+.rm-tabs button{border:0;cursor:pointer;font:900 15px var(--font);letter-spacing:.04em;padding:11px 6px;background:rgba(42,42,46,.35);color:rgba(243,241,237,.55)}
+.rm-tabs button[aria-selected="true"]{background:var(--pearl);color:var(--wine);border-radius:14px 14px 0 0}
+.rm-panel{background:var(--pearl);padding:10px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.rm-panel[hidden]{display:none!important}
+.rm-panel button{border:1px solid var(--line);border-radius:12px;background:#fff;cursor:pointer;font:700 13px var(--font);color:var(--ti);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:10px 4px;min-height:74px;position:relative}
+.rm-panel button svg{width:26px;height:26px;stroke:var(--wine);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.rm-panel button.hero{background:var(--wine);border-color:var(--wine);color:var(--pearl)}
+.rm-panel button.hero svg{stroke:var(--pearl)}
+.rm-panel button.warm{background:var(--cocoa);border-color:var(--cocoa);color:var(--pearl)}
+.rm-panel button.warm svg{stroke:var(--pearl)}
+.rm-panel button.mist{background:var(--mist);border-color:var(--mist);color:#22324a}
+.rm-panel button.mist svg{stroke:#22324a}
+.rm-panel button.dark{background:var(--ti);border-color:var(--ti);color:var(--pearl)}
+.rm-panel button.dark svg{stroke:#c9c9cf}
+.rm-foot{display:flex;justify-content:space-between;align-items:center;padding:7px 14px;font-size:12px;font-weight:900;letter-spacing:.12em}
+.rm-foot b{background:linear-gradient(180deg,#fff,#b9b9c0 48%,#f2f2f5 58%,#a3a3ab);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:14px}
+.rm-foot span{color:#e7c9d0;font-weight:500;letter-spacing:.05em}
+.flex.ti{background:var(--ti)}.flex.cocoa{background:var(--cocoa)}.flex.mistc{background:#3f5672}
+.tapme{position:absolute;top:-6px;right:-4px;font-size:10px;font-weight:700;background:var(--pearl);color:var(--wine);border:1px solid var(--wine);border-radius:999px;padding:1px 6px}
+@media (prefers-reduced-motion:no-preference){.tapme{animation:pulse 1.6s ease-in-out infinite}@keyframes pulse{50%{transform:scale(1.08)}}}
+
+.fimg{display:block;width:100%;aspect-ratio:1/1;object-fit:cover}
+.rm-hero{grid-column:1/-1;position:relative;border-radius:12px;overflow:hidden;height:96px}
+.rm-hero img{width:100%;height:100%;object-fit:cover;object-position:50% 45%;display:block}
+.rm-hero span{position:absolute;left:0;right:0;bottom:0;padding:16px 12px 8px;background:linear-gradient(transparent,rgba(42,42,46,.75));color:#fff;font-weight:900;font-size:15px;letter-spacing:.08em}
+.kvtop{position:relative;border-radius:18px;overflow:hidden;margin:-6px -6px 0}
+.kvtop img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;object-position:50% 60%}
+.kvtop.short img{aspect-ratio:16/9}
+.kvtop>div{position:absolute;left:0;right:0;bottom:0;padding:40px 16px 14px;background:linear-gradient(transparent,rgba(42,42,46,.78))}
+.kvtop h1{margin:0;color:#fff;font-size:28px;font-weight:900;line-height:1.2;text-shadow:0 2px 8px rgba(0,0,0,.35)}
+/* ---- LINE 內建瀏覽器的頂端列 ---- */
+.inapp{display:flex;align-items:center;gap:10px;padding:9px 12px;background:#fff;border-bottom:1px solid #e3e6ea}
+.inapp button{border:0;background:#f0f1f3;border-radius:50%;width:30px;height:30px;font-size:16px;cursor:pointer;color:#333;flex:none}
+.inapp div{flex:1;min-width:0;text-align:center;line-height:1.3}
+.inapp b{display:block;font-size:13.5px}
+.inapp small{font-size:11px;color:#8a8f96}
+.inapp i{width:30px;flex:none}
+
+/* 右側說明 */
+.notes{display:flex;flex-direction:column;gap:18px;min-width:0}
+.notes h2{font-size:26px;color:var(--ti)}
+.notes p.lead{margin:0;font-size:15px;line-height:1.8;color:#46413e;max-width:60ch}
+.ask{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.ask h3{margin:0;font-size:16px;font-weight:900;color:var(--wine)}
+.ask p{margin:0;font-size:14.5px;line-height:1.75;color:#46413e}
+.ask .opt{font-size:13.5px;color:var(--cocoa);font-weight:500}
+
+@media (max-width:860px){
+  .stage{grid-template-columns:1fr;gap:28px}
+  .phone{max-width:420px;width:100%;margin:0 auto}
+}
+@media (max-width:480px){
+  body{padding-block:0 32px;padding-left:0;padding-right:0}
+  .phone{border-radius:0;box-shadow:none;height:auto;min-height:100vh;max-width:none}
+  .screen{overflow:visible}
+  .tabs{position:sticky}
+  .notes{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+}
+@media (prefers-reduced-motion:no-preference){
+  .view:not([hidden]){animation:in .35s ease both}
+  @keyframes in{from{opacity:.4;transform:translateY(6px)}to{opacity:1;transform:none}}
+}
+</style>
+
+<div class="stage">
+  <div class="phone">
+    <div class="ribbon">示意畫面｜點下面的按鈕看看，還不會真的送出</div>
+
+    <!-- A. LINE 聊天室 -->
+    <div class="mode" id="m-line">
+      <div class="lhead"><span class="back">‹</span><b>INLOOK暖暖包<small>官方帳號</small></b></div>
+      <div class="lchat">
+        <div class="lday">今天</div>
+        <div class="lrow">
+          <div class="lav">二哥</div>
+          <div class="lcol">
+            <div class="lname">INLOOK暖暖包</div>
+            <div class="ltext">歡迎加入 INLOOK暖暖包。<br>在這裡可以跟二哥說話、謝謝同事、一起參加活動。點下面的按鈕看看。</div>
+            <div class="flex">
+              <img class="fimg" src="kv-title.jpg" alt="四位老闆把手放在耳邊，表示在聽大家說">
+              <div class="fb">
+                <div class="eyebrow">二哥的三個承諾</div>
+                <div class="ft">匿名不過問<br>每則親自看<br>定期跟大家說</div>
+                <p>想具名或匿名，你自己選。</p>
+              </div>
+              <button type="button" class="fbtn" data-open="say">我要說話</button>
+            </div>
+            <div class="ltime">下午 2:00</div>
+          </div>
+        </div>
+      </div>
+      <div class="lbar">INLOOK暖暖包 ▾</div>
+      <div class="rm" aria-label="圖文選單">
+        <div class="rm-tabs" role="tablist">
+          <button type="button" role="tab" aria-selected="true" data-tab="p1">老闆聽好了</button>
+          <button type="button" role="tab" aria-selected="false" data-tab="p2">暖心補給站</button>
+          <button type="button" role="tab" aria-selected="false" data-tab="p3">暖暖派對</button>
+        </div>
+        <div class="rm-panel" id="p1" role="tabpanel">
+          <div class="rm-hero"><img src="kv.jpg" alt=""><span>老闆，你給我聽好了</span></div>
+          <button type="button" class="hero big" data-open="say"><span class="tapme">點我</span><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg>我要說話<small>匿名具名都可以</small></button>
+          <button type="button" class="big" data-open="check"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>看回覆<small>輸入回覆碼</small></button>
+          <button type="button" class="mist big" data-open="did"><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>你說了<br>我們做到了</button>
+        </div>
+        <div class="rm-panel" id="p2" role="tabpanel" hidden>
+          <button type="button" class="hero big" data-post="thanks"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/></svg>謝謝你<small>謝謝幫過你的同事</small></button>
+          <button type="button" class="big" data-post="story"><svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><path d="M8 10h8M8 14h8M8 18h5"/></svg>櫃上暖心故事</button>
+          <button type="button" class="mist big" data-post="idea"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg>好點子<br>被採用的人</button>
+        </div>
+        <div class="rm-panel" id="p3" role="tabpanel" hidden>
+          <button type="button" class="hero big" data-post="walk"><svg viewBox="0 0 24 24"><path d="M13 4a2 2 0 1 1-4 0 2 2 0 0 1 4 0z"/><path d="M10 8l-3 5h4l-2 7M14 9l2 4 3 1"/></svg>INLOOK派派走<small>走路有夠派</small></button>
+          <button type="button" class="mist big" data-post="cup"><svg viewBox="0 0 24 24"><path d="M7 4h10v4a5 5 0 0 1-10 0z"/><path d="M12 13v4M8 21h8M17 6h3a3 3 0 0 1-3 4M7 6H4a3 3 0 0 0 3 4"/></svg>INLOOK暖暖盃<small>年度趣味運動會</small></button>
+          <button type="button" class="warm big" data-post="warm"><svg viewBox="0 0 24 24"><path d="M9 4l3 2 3-2 5 3-2 4-2-1v10H8V10l-2 1-2-4z"/><path d="M12 13l-1.5-1.5a1 1 0 0 1 1.5-1.3 1 1 0 0 1 1.5 1.3z"/></svg>送暖衣・志工<small>同仁提案、一起決定</small></button>
+        </div>
+        <div class="rm-sub">
+          <button type="button" data-post="letter">二哥的信</button>
+          <button type="button" data-post="mood">每月公司民意</button>
+          <button type="button" data-post="cal">活動行事曆</button>
+        </div>
+        <div class="rm-foot"><b>INLOOK暖暖包</b><span>一起順起來</span></div>
+      </div>
+    </div>
+
+    <!-- B. 在 LINE 裡打開的發言頁 -->
+    <div class="mode" id="m-app" hidden>
+    <div class="inapp"><button type="button" id="close" aria-label="關閉，回到 LINE">✕</button><div><b>老闆，你給我聽好了</b><small>網址待定</small></div><i></i></div>
+    <div class="screen" id="screen">
+      <svg class="orbit" viewBox="0 0 360 360" aria-hidden="true">
+        <ellipse cx="180" cy="180" rx="170" ry="70" transform="rotate(-24 180 180)"/>
+        <ellipse cx="180" cy="180" rx="130" ry="52" transform="rotate(-24 180 180)"/>
+        <ellipse cx="180" cy="180" rx="172" ry="110" transform="rotate(18 180 180)"/>
+      </svg>
+
+      <!-- 1 說說話 -->
+      <section class="view" id="v-say">
+        <div class="kvtop">
+          <img src="kv.jpg" alt="四位老闆把手放在耳邊，表示在聽大家說">
+          <div><div class="brand" style="color:#fff">INLOOK　內部專用</div><h1>老闆，<br>你給我聽好了</h1></div>
+        </div>
+
+        <div class="host">
+          <div class="avatar" aria-label="二哥頭像（插畫還沒放）">二哥</div>
+          <div class="bubble">工作上哪裡卡卡的、有什麼點子、或只是想講講心裡話，都可以寫在這裡。<b>每一則我都會親自看。</b></div>
+        </div>
+
+        <div class="promise">
+          <div><strong>不過問</strong>匿名的意見，不會去問是誰說的</div>
+          <div><strong>親自看</strong>每一則，二哥自己讀、自己回</div>
+          <div><strong>會交代</strong>定期說做了什麼，沒做到也說原因</div>
+        </div>
+
+        <form class="card" id="form">
+          <div>
+            <div class="label">想說哪一種？<small>可不選</small></div>
+            <div class="chips" id="chips" style="margin-top:10px">
+              <button type="button" class="chip" aria-pressed="false">工作卡卡的地方</button>
+              <button type="button" class="chip" aria-pressed="false">我有個點子</button>
+              <button type="button" class="chip" aria-pressed="false">需要公司幫忙</button>
+              <button type="button" class="chip" aria-pressed="false">想說的心裡話</button>
+              <button type="button" class="chip" aria-pressed="false">其他</button>
+            </div>
+          </div>
+
+          <div>
+            <label class="label" for="txt">想跟二哥說什麼？</label>
+            <textarea id="txt" style="margin-top:10px" maxlength="1000" placeholder="想到什麼就寫什麼，不用寫得很正式。&#10;例如：週年慶補貨常常晚到，客人來了沒尺寸……"></textarea>
+          </div>
+          <div class="count"><span id="cnt">0</span> / 1000 字</div>
+
+          <div>
+            <div class="label">要不要留名字？</div>
+            <div class="seg" style="margin-top:10px">
+              <button type="button" id="b-anon" aria-pressed="true">匿名</button>
+              <button type="button" id="b-named" aria-pressed="false">留名字</button>
+            </div>
+          </div>
+
+          <div class="note anon" id="n-anon">
+            選匿名，系統只記「哪一天」送出，其他都不記：
+            <ul><li>不記幾點幾分</li><li>不記你的手機型號、網路位址</li><li>不記你的 LINE</li></ul>
+            送出後會給你一組<b>回覆碼</b>，用它就能看到二哥的回覆。
+          </div>
+
+          <div class="note named" id="n-named" hidden>
+            留名字，二哥回覆時可以直接找你聊。點子被採用的話，經過你同意，會寫上你的名字謝謝你。
+            <div class="row" style="margin-top:10px">
+              <input type="text" id="nm" placeholder="你的名字" aria-label="你的名字">
+              <input type="text" id="st" placeholder="櫃點或部門（可不填）" aria-label="櫃點或部門">
+            </div>
+          </div>
+
+          <button class="btn" id="send" type="submit" disabled>送出給二哥</button>
+        </form>
+      </section>
+
+      <!-- 2 送出後 -->
+      <section class="view done" id="v-done" hidden>
+        <div class="host" style="text-align:left">
+          <div class="avatar">二哥</div>
+          <div class="bubble">收到了，謝謝你願意說。我會親自看，回覆好了會放在這裡。</div>
+        </div>
+        <div class="card" style="align-items:center;width:100%">
+          <div class="label" style="justify-content:center">你的回覆碼</div>
+          <div class="code"><span id="code">K7M-492</span></div>
+          <div style="font-size:13.5px;line-height:1.7;color:var(--muted)">請<b style="color:var(--wine)">截圖</b>或抄下來。<br>這組碼只有你知道，我們也查不到是誰。</div>
+          <button class="btn ghost" type="button" id="copy">複製回覆碼</button>
+        </div>
+        <button class="btn" type="button" data-go="check">去看回覆</button>
+        <button class="btn ghost" type="button" data-go="say">再說一則</button>
+      </section>
+
+      <!-- 3 查回覆 -->
+      <section class="view" id="v-check" hidden>
+        <h2>看二哥的回覆</h2>
+        <form class="card" id="cform">
+          <label class="label" for="cin">輸入回覆碼<small>例如 K7M-492</small></label>
+          <input type="text" id="cin" placeholder="K7M-492" autocomplete="off" style="font-size:20px;letter-spacing:.15em;text-transform:uppercase">
+          <button class="btn" type="submit">查詢</button>
+          <div style="font-size:12.5px;color:var(--muted);margin-top:-4px">留名字的人不用回覆碼，二哥會直接找你。</div>
+        </form>
+        <div class="thread" id="thread" hidden>
+          <div class="msg me">
+            <div class="meta">你說的・11/25 <span class="status st-doing">處理中</span></div>
+            週年慶期間補貨常常晚到，客人來了沒尺寸，只能請她改天再來。可以讓門市自己看到倉庫還有幾件嗎？
+          </div>
+          <div class="msg him">
+            <div class="meta">二哥回覆・11/27</div>
+            謝謝你講出來，這個真的很重要。我已經找物流和資訊一起看，先試著讓門市在樓冠姐 APP 裡看得到倉庫庫存。12 月底前會跟大家說進度，做不到也會說為什麼。
+          </div>
+          <div class="sample">↑ 這是範例內容</div>
+        </div>
+      </section>
+
+      <!-- 4 做到了 -->
+      <section class="view" id="v-did" hidden>
+        <div class="kvtop short"><img src="kv.jpg" alt=""><div><h1>你說了，<br>我們做到了</h1></div></div>
+        <div class="month">
+          <h3>12 月公司民意</h3>
+          <div class="stats">
+            <div><b>38</b><span>則發言</span></div>
+            <div><b>38</b><span>則已回覆</span></div>
+            <div><b>5</b><span>件在處理</span></div>
+          </div>
+          <div style="font-size:14px;line-height:1.7;color:#dedad4">這個月大家最常提的：補貨速度、排班、週年慶太累。</div>
+        </div>
+        <div class="item"><span class="tag t-done">做到了</span><p>週年慶期間每間櫃多一份點心補給</p><p class="why">台中一位同仁提的點子，她同意我們寫出來：謝謝 小雯</p></div>
+        <div class="item"><span class="tag t-doing">處理中</span><p>門市可以自己查倉庫庫存</p><p class="why">預計 12 月底先在 3 個櫃試</p></div>
+        <div class="item"><span class="tag t-not">還沒辦法</span><p>週六全部提早一小時打烊</p><p class="why">百貨公司規定營業時間，我們改不了。會先跟百貨談延後到班。</p></div>
+        <div class="sample">↑ 這一頁全是範例內容，數字和人名都是假的</div>
+      </section>
+    </div>
+
+    <nav class="tabs" aria-label="分頁">
+      <button type="button" data-go="say" aria-current="page"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg>說說話</button>
+      <button type="button" data-go="check"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>看回覆</button>
+      <button type="button" data-go="did"><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>做到了</button>
+    </nav>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <h2>二哥，請看這幾個地方</h2>
+    <p class="lead">員工加 LINE 官方帳號「INLOOK暖暖包」（@650uroqb）好友後，會先看到左邊的聊天室。下面那排大按鈕叫「圖文選單」，點「我要說話」就會<b>在 LINE 裡面</b>打開發言頁，寫完按右上角 ✕ 回到 LINE。發言頁分成三頁：說說話、看回覆、做到了。左邊可以直接點點看。</p>
+
+    <div class="ask">
+      <h3>A　LINE 帳號叫「INLOOK暖暖包」，下面三個分頁</h3>
+      <p><b>「老闆聽好了」</b>：我要說話、看回覆、你說了我們做到了。</p>
+      <p><b>「暖心補給站」</b>：謝謝你、櫃上暖心故事、好點子被採用的人。</p>
+      <p><b>「暖暖派對」</b>：INLOOK派派走、INLOOK暖暖盃、送暖衣・志工。</p>
+      <p>最下面固定一排：二哥的信、每月公司民意、活動行事曆。點「暖心補給站」「暖暖派對」的按鈕，聊天室會跳出卡片（內容是範例）。</p>
+      <p class="opt">分頁切換需要開通 LINE 的 Messaging API（免費），之後推播彩色卡片本來就要開。</p>
+    </div>
+    <div class="ask">
+      <h3>主視覺放在四個地方</h3>
+      <p>四位老闆手放耳邊的插畫，放在：①加好友後的歡迎卡片 ②選單「老闆聽好了」分頁上方 ③發言頁最上面 ④「你說了，我們做到了」封面。左邊都點得到。</p>
+      <p class="opt">提醒：正式發出前要先讓大哥看過，確認同意掛名。</p>
+    </div>
+    <div class="ask">
+      <h3>B　加好友後自動跳出的歡迎訊息，像不像你會說的？</h3>
+      <p>一段簡短的話，加上一張酒紅色卡片寫三個承諾。文字你可以直接給我你的版本。</p>
+    </div>
+    <div class="ask">
+      <h3>C　匿名還是真的匿名</h3>
+      <p>雖然是從 LINE 點進來，發言頁<b>不會抓員工的 LINE 帳號</b>，匿名的人還是查不到是誰。員工如果直接在聊天室打字給官方帳號，後台會看到 LINE 名字，所以歡迎訊息會引導大家點「我要說話」。</p>
+    </div>
+
+    <h2 style="font-size:20px;margin-top:6px">發言頁裡面</h2>
+    <div class="ask">
+      <h3>1　開場那段話，像不像你會說的？</h3>
+      <p>現在寫的是：「工作上哪裡卡卡的、有什麼點子、或只是想講講心裡話，都可以寫在這裡。每一則我都會親自看。」想怎麼改，直接跟我說你的版本。</p>
+    </div>
+    <div class="ask">
+      <h3>2　五個分類夠不夠？</h3>
+      <p>工作卡卡的地方／我有個點子／需要公司幫忙／想說的心裡話／其他。選不選都可以，主要是方便你之後整理。</p>
+    </div>
+    <div class="ask">
+      <h3>3　預設「匿名」還是「留名字」？</h3>
+      <p>我先放<b>匿名</b>在前面，讓大家比較敢說。</p>
+      <p class="opt">另一種想法：預設留名字，鼓勵大家具名，但匿名一樣可以選。</p>
+    </div>
+    <div class="ask">
+      <h3>4　「做到了」這頁要不要現在就放？</h3>
+      <p>這頁要等你第一次整理完才會有內容。可以先藏起來，等 11/30 樓冠姐問卷結果公布時，當作第一則放上去。</p>
+    </div>
+    <div class="ask">
+      <h3>5　回覆碼長這樣可以嗎？</h3>
+      <p>英文字母加數字共 6 碼（例如 K7M-492），不會出現容易看錯的 0 和 O、1 和 I。</p>
+    </div>
+  </aside>
+</div>
+
+<script>
+(function(){
+  var views={say:'v-say',done:'v-done',check:'v-check',did:'v-did'};
+  var screen=document.getElementById('screen');
+  function go(k){
+    Object.keys(views).forEach(function(v){document.getElementById(views[v]).hidden=(v!==k)});
+    var tab=k==='done'?'say':k;
+    document.querySelectorAll('.tabs button').forEach(function(b){
+      if(b.dataset.go===tab)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');
+    });
+    screen.scrollTop=0;
+  }
+  document.querySelectorAll('[data-go]').forEach(function(b){b.addEventListener('click',function(){go(b.dataset.go)})});
+  var mLine=document.getElementById('m-line'),mApp=document.getElementById('m-app');
+  document.querySelectorAll('[data-open]').forEach(function(b){b.addEventListener('click',function(){
+    mLine.hidden=true;mApp.hidden=false;go(b.dataset.open);
+  })});
+  document.getElementById('close').addEventListener('click',function(){mApp.hidden=true;mLine.hidden=false});
+
+  // 圖文選單分頁
+  document.querySelectorAll('[data-tab]').forEach(function(t){t.addEventListener('click',function(){
+    document.querySelectorAll('[data-tab]').forEach(function(x){x.setAttribute('aria-selected',x===t);document.getElementById(x.dataset.tab).hidden=(x!==t)});
+  })});
+
+  // 按了會在聊天室跳出一張卡（範例內容）
+  var cards={
+    mood:{c:'mistc',e:'12 月公司民意',t:'這個月大家<br>最在意的事',p:'補貨速度、排班、週年慶太累。完整整理請看「做到了」。',b:'看完整整理',open:'did'},
+    video:{c:'ti',e:'影片',t:'二哥想跟<br>大家說的話',p:'營業月會專題，約 7 分鐘。',b:'▶ 播放影片'},
+    thanks:{c:'',e:'謝謝你',t:'想謝謝<br>哪一位同事？',p:'幫你調過貨、代過班、教過你一招的人，寫下來。我們會把你的謝謝，做成一張卡片送到他手上。',b:'寫一張謝謝卡'},
+    idea:{c:'mistc',e:'好點子',t:'被採用的<br>好點子',p:'這個月採用了 2 個點子。謝謝 小雯（台中）、阿芳（高雄），經過本人同意才寫名字。',b:'看是哪些點子'},
+    news:{c:'',e:'公告',t:'樓冠姐問卷<br>結果出來了',p:'大家說了什麼、我們改了什麼，一次說清楚。',b:'看結果'},
+    guess:{c:'mistc',e:'互動遊戲',t:'猜猜<br>這是哪一款？',p:'每週放一張新款局部照，猜中品牌和款式就有機會抽小禮物。',b:'我要猜'},
+    outfit:{c:'',e:'比賽',t:'櫃上<br>穿搭比賽',p:'用自己櫃上的衣服搭一套，拍照上傳，大家一起投票。',b:'我要參加'},
+    story:{c:'cocoa',e:'分享',t:'櫃上的<br>暖心小故事',p:'客人讓你感動的一刻，寫下來分享。選出來的會在月會上念。',b:'我要分享'},
+    warm:{c:'cocoa',e:'公益',t:'送暖衣<br>志工服務',p:'我們是做衣服的。想去哪裡幫忙、送給誰，由同仁提案、大家投票決定。',b:'我要提案'},
+    walk:{c:'',e:'INLOOK派派走',t:'一關一關<br>走遍全台',p:'手機自動記步數，跟不同櫃的同事同一組，走到每個櫃就收集一張明信片。走路有夠派！',b:'看我們這組走到哪'},
+    cup:{c:'mistc',e:'INLOOK暖暖盃',t:'年度<br>趣味運動會',p:'總部同仁週六上午一起動一動：球類、體適能、跑跳，不想跑的人當加油隊也算參加。',b:'看活動介紹'},
+    letter:{c:'ti',e:'二哥的信',t:'寫給<br>大家的一封信',p:'週年慶辛苦了。這一檔大家互相寫了 126 句謝謝，我每一句都看了。（範例）',b:'看全文'},
+    cal:{c:'ti',e:'活動行事曆',t:'接下來<br>有什麼活動',p:'每個月的遊戲、比賽、愛心行動，都會先放在這裡。',b:'看行事曆'}
+  };
+  var chat=document.querySelector('.lchat');
+  document.querySelectorAll('[data-post]').forEach(function(b){b.addEventListener('click',function(){
+    var d=cards[b.dataset.post];
+    var row=document.createElement('div');row.className='lrow';
+    row.innerHTML='<div class="lav">二哥</div><div class="lcol"><div class="flex '+d.c+'"><div class="fb"><div class="eyebrow">'+d.e+'</div><div class="ft">'+d.t+'</div><p>'+d.p+'</p></div><button type="button" class="fbtn">'+d.b+'</button></div><div class="ltime">範例內容</div></div>';
+    if(d.open){row.querySelector('.fbtn').addEventListener('click',function(){mLine.hidden=true;mApp.hidden=false;go(d.open)})}
+    chat.appendChild(row);chat.scrollTop=chat.scrollHeight;
+  })});
+
+  document.querySelectorAll('.chip').forEach(function(c){
+    c.addEventListener('click',function(){
+      var on=c.getAttribute('aria-pressed')==='true';
+      document.querySelectorAll('.chip').forEach(function(x){x.setAttribute('aria-pressed','false')});
+      c.setAttribute('aria-pressed',on?'false':'true');
+    });
+  });
+
+  var txt=document.getElementById('txt'),cnt=document.getElementById('cnt'),send=document.getElementById('send');
+  txt.addEventListener('input',function(){cnt.textContent=txt.value.length;send.disabled=!txt.value.trim()});
+
+  var anon=true,bA=document.getElementById('b-anon'),bN=document.getElementById('b-named');
+  function setAnon(a){anon=a;bA.setAttribute('aria-pressed',a);bN.setAttribute('aria-pressed',!a);
+    document.getElementById('n-anon').hidden=!a;document.getElementById('n-named').hidden=a;
+    send.textContent=a?'匿名送出給二哥':'送出給二哥';}
+  bA.addEventListener('click',function(){setAnon(true)});
+  bN.addEventListener('click',function(){setAnon(false)});
+  setAnon(true);
+
+  var chars='ABCDEFGHJKLMNPQRSTUVWXYZ',nums='23456789';
+  function pick(s){return s[Math.floor(Math.random()*s.length)]}
+  document.getElementById('form').addEventListener('submit',function(e){
+    e.preventDefault();
+    var code=pick(chars)+pick(nums)+pick(chars)+'-'+pick(nums)+pick(nums)+pick(nums);
+    document.getElementById('code').textContent=code;
+    document.getElementById('cin').value=code;
+    go('done');
+  });
+  document.getElementById('copy').addEventListener('click',function(){
+    var b=this,c=document.getElementById('code').textContent;
+    function ok(){b.textContent='已複製';setTimeout(function(){b.textContent='複製回覆碼'},1500)}
+    try{navigator.clipboard.writeText(c).then(ok,function(){b.textContent='請長按回覆碼複製'})}catch(err){b.textContent='請長按回覆碼複製'}
+  });
+  document.getElementById('cform').addEventListener('submit',function(e){
+    e.preventDefault();document.getElementById('thread').hidden=false;
+  });
+})();
+</script>
+<a href="index.html" style="position:fixed;right:12px;bottom:12px;z-index:99;background:#2a2a2e;color:#fff;font:700 14px/1 sans-serif;padding:10px 14px;border-radius:999px;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.25)">回首頁</a></body></html>
