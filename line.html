@@ -233,7 +233,7 @@ textarea:focus,input:focus,.chip:focus-visible,button:focus-visible{outline:2px 
               <img class="fimg" src="kv-title.jpg" alt="四位老闆把手放在耳邊，表示在聽大家說">
               <div class="fb">
                 <div class="eyebrow">二哥的三個承諾</div>
-                <div class="ft">匿名不過問<br>每則親自看<br>定期跟大家說</div>
+                <div class="ft">安心說<br>用心聽<br>有回音</div>
                 <p>想具名或匿名，你自己選。</p>
               </div>
               <button type="button" class="fbtn" data-open="say">我要說話</button>
@@ -252,7 +252,7 @@ textarea:focus,input:focus,.chip:focus-visible,button:focus-visible{outline:2px 
         <div class="rm-panel" id="p1" role="tabpanel">
           <div class="rm-hero"><img src="kv.jpg" alt=""><span>老闆，你給我聽好了</span></div>
           <button type="button" class="hero big" data-open="say"><span class="tapme">點我</span><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg>我要說話<small>匿名具名都可以</small></button>
-          <button type="button" class="big" data-open="check"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>看回覆<small>輸入回覆碼</small></button>
+          <button type="button" class="big" data-open="check"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>看回覆<small>用送出時拿到的號碼</small></button>
           <button type="button" class="mist big" data-open="did"><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>你說了<br>我們做到了</button>
         </div>
         <div class="rm-panel" id="p2" role="tabpanel" hidden>
@@ -297,9 +297,9 @@ textarea:focus,input:focus,.chip:focus-visible,button:focus-visible{outline:2px 
         </div>
 
         <div class="promise">
-          <div><strong>不過問</strong>匿名的意見，不會去問是誰說的</div>
-          <div><strong>親自看</strong>每一則，二哥自己讀、自己回</div>
-          <div><strong>會交代</strong>定期說做了什麼，沒做到也說原因</div>
+          <div><strong>安心說</strong>匿名的意見，不追問是誰說的</div>
+          <div><strong>用心聽</strong>每一則，二哥自己讀、自己回</div>
+          <div><strong>有回音</strong>定期說做了什麼，沒做到也說原因</div>
         </div>
 
         <form class="card" id="form">
@@ -367,6 +367,7 @@ textarea:focus,input:focus,.chip:focus-visible,button:focus-visible{outline:2px 
         <h2>看二哥的回覆</h2>
         <form class="card" id="cform">
           <label class="label" for="cin">輸入回覆碼<small>例如 K7M-492</small></label>
+          <div style="font-size:13.5px;color:var(--muted);margin:-2px 0 6px">回覆碼就像取餐號碼：匿名送出時，畫面會給你一組號碼。因為二哥不知道是誰寫的，就靠這組號碼把回覆交給你。</div>
           <input type="text" id="cin" placeholder="K7M-492" autocomplete="off" style="font-size:20px;letter-spacing:.15em;text-transform:uppercase">
           <button class="btn" type="submit">查詢</button>
           <div style="font-size:12.5px;color:var(--muted);margin-top:-4px">留名字的人不用回覆碼，二哥會直接找你。</div>
